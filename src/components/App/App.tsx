@@ -1,5 +1,6 @@
 import React from 'react'
 import './App.css'
+import Counter from '../Counter/Counter'
 
 interface AppProps {
   title?: string
@@ -28,27 +29,17 @@ class App extends React.Component<AppProps, AppState> {
     const { counter } = this.state
 
     return (
-      <div className={'container-lg'}>
-        <h1>{title}</h1>
-        <p>{info?.toLowerCase()}</p>
-
-        <div className={'btn-group-lg'}>
-          <button
-            type={'button'}
-            className={'btn btn-lg btn-primary'}
-            onClick={this.handleIncrement}
-          >
-            <i className={'bi-plus-circle'} />
-          </button>
-          <button
-            type={'button'}
-            className={'btn btn-lg btn-secondary'}
-            onClick={this.handleDecrement}
-          >
-            <i className={'bi-dash-circle'} />
-          </button>
-          <h2>{counter}</h2>
+      <div className={'container-lg d-grid gap-4 p-3'}>
+        <div>
+          <h1>{title}</h1>
+          <p>{info?.toLowerCase()}</p>
         </div>
+
+        <Counter
+          onIncrement={this.handleIncrement}
+          onDecrement={this.handleDecrement}
+          counter={counter}
+        />
       </div>
     )
   }
