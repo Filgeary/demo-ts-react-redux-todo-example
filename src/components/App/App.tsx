@@ -1,11 +1,19 @@
 import React from 'react'
 import './App.css'
 
-class App extends React.Component {
+interface AppProps {
+  title?: string
+  info?: string
+}
+
+class App extends React.Component<AppProps> {
   render() {
+    const { title, info } = this.props
+
     return (
       <div>
-        <h1>TypeScript_React_Redux</h1>
+        <h1>{title}</h1>
+        <p>{info?.toLowerCase()}</p>
       </div>
     )
   }
