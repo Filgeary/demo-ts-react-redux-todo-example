@@ -3,13 +3,14 @@ import './App.css'
 import Counter from '../Counter/Counter'
 import { IStoreState, ITodoItem } from '../../interfaces'
 import { connect } from 'react-redux'
-import { fetchTodos } from '../../actions'
+import { deleteTodo, fetchTodos } from '../../actions'
 
 interface AppProps {
   title?: string
   info?: string
   todos: ITodoItem[]
-  fetchTodos(): any
+  fetchTodos: Function
+  deleteTodo: typeof deleteTodo
 }
 
 interface AppState {
@@ -30,7 +31,7 @@ class App extends React.Component<AppProps, AppState> {
   }
 
   render() {
-    const { title, info, fetchTodos, todos } = this.props
+    const { title, info, fetchTodos, deleteTodo, todos } = this.props
     const { counter } = this.state
 
     return (
@@ -50,7 +51,7 @@ class App extends React.Component<AppProps, AppState> {
           <h2>Posts</h2>
           <button
             type={'button'}
-            className={'btn btn-lg btn-danger d-block w-25'}
+            className={'btn btn-lg btn-primary d-block w-25'}
             onClick={() => fetchTodos()}
           >
             Get Posts
@@ -65,6 +66,12 @@ class App extends React.Component<AppProps, AppState> {
                   <h3>{id}</h3>
                   <p>{title}</p>
                   {completed && <p className={'text-danger'}>Completed</p>}
+                  <button
+                    className={'btn btn-lg btn-danger d-block w-25'}
+                    onClick={() => deleteTodo(id)}
+                  >
+                    Delete
+                  </button>
                 </div>
               )
             })}
@@ -78,4 +85,4 @@ const mapStateToProps = ({ todos }: IStoreState): { todos: ITodoItem[] } => {
   return { todos }
 }
 
-export default connect(mapStateToProps, { fetchTodos })(App)
+export default connect(mapStateToProps, { fetchTodos, deleteTodo })(App)
