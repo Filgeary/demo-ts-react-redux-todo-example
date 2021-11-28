@@ -6,11 +6,16 @@ export interface ITodoItem {
   completed: boolean
 }
 
+export interface IStoreState {
+  todos: ITodoItem[]
+}
+
 export interface IFetchTodosAction {
   type: ActionTypes.fetchTodos
   payload: ITodoItem[]
 }
 
-export interface IStoreState {
-  todos: ITodoItem[]
+export interface IDeleteTodoAction {
+  type: ActionTypes.deleteTodo
+  payload: number
 }
