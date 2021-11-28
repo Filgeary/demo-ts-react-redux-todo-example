@@ -30,7 +30,7 @@ class App extends React.Component<AppProps, AppState> {
   }
 
   render() {
-    const { title, info } = this.props
+    const { title, info, fetchTodos, todos } = this.props
     const { counter } = this.state
 
     return (
@@ -45,6 +45,30 @@ class App extends React.Component<AppProps, AppState> {
           onDecrement={this.handleDecrement}
           counter={counter}
         />
+
+        <div className={'d-grid gap-2'}>
+          <h2>Posts</h2>
+          <button
+            type={'button'}
+            className={'btn btn-lg btn-danger d-block w-25'}
+            onClick={() => fetchTodos()}
+          >
+            Get Posts
+          </button>
+
+          {todos.length > 0 &&
+            todos.map(item => {
+              const { id, title, completed } = item
+
+              return (
+                <div key={id}>
+                  <h3>{id}</h3>
+                  <p>{title}</p>
+                  {completed && <p className={'text-danger'}>Completed</p>}
+                </div>
+              )
+            })}
+        </div>
       </div>
     )
   }
