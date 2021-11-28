@@ -1,10 +1,15 @@
 import React from 'react'
 import './App.css'
 import Counter from '../Counter/Counter'
+import { IStoreState, ITodoItem } from '../../interfaces'
+import { connect } from 'react-redux'
+import { fetchTodos } from '../../actions'
 
 interface AppProps {
   title?: string
   info?: string
+  todos: ITodoItem[]
+  fetchTodos(): any
 }
 
 interface AppState {
@@ -45,4 +50,8 @@ class App extends React.Component<AppProps, AppState> {
   }
 }
 
-export default App
+const mapStateToProps = ({ todos }: IStoreState): { todos: ITodoItem[] } => {
+  return { todos }
+}
+
+export default connect(mapStateToProps, { fetchTodos })(App)
